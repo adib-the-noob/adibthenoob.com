@@ -1,0 +1,67 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<BaseLayout title={`${post.data.title} — ADIB`} description={post.data.description}>
+  <article class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <header class="mb-14 max-w-3xl">
+      <p class="mb-4 font-mono text-sm text-faint">
+        <a href="/blog/" class="transition-colors hover:text-body">Blog</a>
+        <span class="mx-2 text-line">/</span>
+        <time datetime={post.data.pubDate.toISOString()}>
+          {formatDate(post.data.pubDate)}
+        </time>
+      </p>
+      <h1 class="font-display text-4xl font-semibold leading-[1.1] tracking-tight text-balance sm:text-5xl">
+        {post.data.title}
+      </h1>
+      <p class="mt-6 text-lg leading-relaxed text-muted">
+        {post.data.description}
+      </p>
+      {
+        post.data.tags.length > 0 && (
+          <ul class="mt-8 flex flex-wrap gap-2">
+            {post.data.tags.map((tag) => (
+              <li class="rounded-full border border-line bg-raised px-3 py-1 font-mono text-xs text-muted">
+                {tag}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <div class="prose-blog max-w-3xl">
+      <Content />
+    </div>
+
+    <footer class="mt-16 border-t border-line-soft/60 pt-8">
+      <a
+        href="/blog/"
+        class="font-mono text-sm text-muted transition-colors hover:text-body"
+      >
+        &larr; All posts
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

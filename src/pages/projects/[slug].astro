@@ -1,0 +1,77 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects", ({ data }) => !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={`${project.data.title} — ADIB`} description={project.data.description}>
+  <article class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <header class="mb-14 max-w-3xl" data-reveal>
+      <p class="mb-4 font-mono text-sm text-faint">
+        <a href="/#projects" class="transition-colors hover:text-body">Projects</a>
+        <span class="mx-2 text-line">/</span>
+        <span>{project.data.period ?? ""}</span>
+        <span class="mx-2 text-line">/</span>
+        <span class="uppercase">{project.data.status}</span>
+      </p>
+      <h1 class="font-display text-4xl font-semibold leading-[1.1] tracking-tight text-balance sm:text-5xl">
+        {project.data.title}
+      </h1>
+      <p class="mt-6 text-lg leading-relaxed text-muted">
+        {project.data.description}
+      </p>
+      {
+        (project.data.tools.length > 0 ||
+          project.data.liveUrl ||
+          project.data.repoUrl) && (
+          <div class="mt-8 flex flex-wrap items-center gap-2">
+            {project.data.tools.map((tool) => (
+              <span class="rounded-full border border-line bg-raised px-3 py-1 font-mono text-xs text-muted">
+                {tool}
+              </span>
+            ))}
+            {project.data.liveUrl && (
+              <a
+                href={project.data.liveUrl}
+                class="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 font-mono text-xs text-primary transition-colors hover:bg-primary/20"
+              >
+                Live ↗
+              </a>
+            )}
+            {project.data.repoUrl && (
+              <a
+                href={project.data.repoUrl}
+                class="rounded-full border border-line bg-raised px-3 py-1 font-mono text-xs text-muted transition-colors hover:text-body"
+              >
+                Source ↗
+              </a>
+            )}
+          </div>
+        )
+      }
+    </header>
+
+    <div class="prose-blog max-w-3xl">
+      <Content />
+    </div>
+
+    <footer class="mt-16 border-t border-line-soft/60 pt-8">
+      <a
+        href="/#projects"
+        class="font-mono text-sm text-muted transition-colors hover:text-body"
+      >
+        &larr; All projects
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

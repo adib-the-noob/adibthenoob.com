@@ -1,0 +1,66 @@
+---
+const year = new Date().getFullYear();
+
+const sections = [
+  { label: "Experience", href: "/#experience" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Writing", href: "/#writing" },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
+];
+
+const elsewhere = [
+  { label: "GitHub", href: "https://github.com/adib-the-noob" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/adib550" },
+  { label: "Email", href: "mailto:mohammed.adib1104@gmail.com" },
+];
+---
+
+<footer class="border-t border-line-soft/60">
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-12 md:flex-row md:items-start md:justify-between"
+  >
+    <div>
+      <p class="font-mono text-sm tracking-tight text-body">
+        ADIB<span class="text-primary">.</span>
+      </p>
+      <p class="mt-3 max-w-xs font-mono text-xs leading-relaxed text-faint">
+        © {year} Mohammed Adib. Built with Astro, Tailwind and GSAP.
+      </p>
+      <p class="mt-3 font-mono text-xs text-faint">
+        <span class="text-ok">●</span> Available for freelance &amp; full-time
+      </p>
+    </div>
+
+    <nav aria-label="Footer">
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {
+          sections.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="font-mono text-sm text-muted transition-colors hover:text-body"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+        {
+          elsewhere.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="font-mono text-sm text-faint underline decoration-line underline-offset-4 transition-colors hover:text-body"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</footer>

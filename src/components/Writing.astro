@@ -1,0 +1,67 @@
+---
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const fmt = new Intl.DateTimeFormat("en-GB", {
+  year: "numeric",
+  month: "short",
+  day: "2-digit",
+});
+---
+
+<section id="writing" class="scroll-mt-24 border-t border-line-soft/60">
+  <div class="mx-auto max-w-6xl px-6 py-24">
+    <div
+      data-reveal
+      class="mb-14 flex flex-wrap items-end justify-between gap-6"
+    >
+      <div>
+        <p class="mb-3 font-mono text-sm tracking-wide text-primary">
+          [ 03 · writing ]
+        </p>
+        <h2 class="font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          Notes from the workbench
+        </h2>
+      </div>
+      <a
+        href="/blog/"
+        class="font-mono text-sm text-muted underline decoration-line underline-offset-4 transition-colors hover:text-body"
+      >
+        All posts &rarr;
+      </a>
+    </div>
+
+    <ul class="divide-y divide-line-soft" data-stagger>
+      {
+        posts.map((post) => (
+          <li>
+            <a
+              href={`/blog/${post.id}/`}
+              class="group grid gap-2 py-7 transition-colors hover:bg-raised/40 md:grid-cols-12 md:gap-6 md:px-4"
+            >
+              <p class="font-mono text-sm text-faint md:col-span-2">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {fmt.format(post.data.pubDate)}
+                </time>
+              </p>
+              <div class="md:col-span-10">
+                <h3 class="text-lg font-medium tracking-tight text-body">
+                  {post.data.title}
+                  <span class="ml-2 inline-block translate-y-px font-mono text-xs text-faint opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100">
+                    &rarr;
+                  </span>
+                </h3>
+                <p class="mt-1.5 max-w-[60ch] text-sm leading-relaxed text-muted">
+                  {post.data.description}
+                </p>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+title: "Shipping a portfolio with Astro"
+description: "Notes from building a content-first site with content collections, MDX, and a tight design system."
+pubDate: 2026-09-01
+tags: ["astro", "engineering"]
+---
+
+import { Callout } from "../../components/mdx/Callout";
+
+Astro is a good fit for a portfolio because most of the work is content, not client state.
+
+What I wanted:
+
+- Static pages that load fast
+- A blog that lives as **MDX** in the repo
+- A design system that does not fight the content
+
+Content collections give you typed frontmatter and a clean way to list posts. Pair that with a single layout and a small set of tokens, and the site stays honest as it grows.
+
+<Callout title="Why MDX">
+  Markdown for the words. Components when a callout, chart, or interactive demo earns its place.
+</Callout>
+
+The hard part is not the framework. It is deciding what belongs on the page and what does not.

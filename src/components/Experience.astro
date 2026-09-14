@@ -1,0 +1,151 @@
+---
+const jobs = [
+  {
+    role: "Software Engineer L2",
+    company: "Flarezen Ltd.",
+    tag: "@MetroVPS",
+    period: "Feb 2026 — Present",
+    location: "Dhaka, BD · Hybrid",
+    bullets: [
+      `Architect and build MetroVPS, a white-label B2B management platform —
+       a scalable multi-layer billing & resource management system spanning
+       providers, resellers and customers.`,
+      `Engineer resource lifecycle management for VMs, storage, SSH keys and
+       related infrastructure components.`,
+      `Develop secure RESTful APIs with fine-grained, hierarchical
+       authorization — provider → reseller → customer role isolation.`,
+      `Optimize backend performance and database queries for reliability
+       across multi-tenant environments.`,
+    ],
+    tools: ["Django", "DRF", "Celery", "Redis", "MariaDB", "Docker"],
+  },
+  {
+    role: "Software Engineer",
+    company: "LakLak Market",
+    tag: "E-commerce CMS",
+    period: "Jan 2025 — May 2025",
+    location: "10,000+ customers",
+    bullets: [
+      `Delivered performance and feature updates for an e-commerce CMS serving
+       over 10,000 customers, working in a large legacy Laravel 9 codebase.`,
+      `Improved database efficiency by optimizing complex, high-volume
+       queries behind customer operations.`,
+      `Built RESTful APIs for mobile app integration and refactored Blade +
+       Bootstrap dashboards across admin, seller and customer surfaces.`,
+    ],
+    tools: ["Laravel 9", "Blade", "MariaDB", "Bootstrap", "Firebase"],
+  },
+  {
+    role: "Backend Engineer",
+    company: "Maverick Softwares",
+    tag: "Remote",
+    period: "Nov 2022 — Dec 2023",
+    location: "1 yr 1 mo · Remote",
+    bullets: [
+      `Built scalable REST APIs with Django REST Framework; integrated
+       Celery for background work like OTP delivery and email notifications.`,
+      `Implemented real-time chat with Django Channels and WebSockets;
+       designed and indexed PostgreSQL schemas for query speed.`,
+      `Deployed on EC2 behind Nginx with S3 media storage and CloudFront CDN;
+       containerized with Docker and set up CI/CD via GitHub Actions.`,
+    ],
+    tools: ["DRF", "Celery", "Channels", "PostgreSQL", "Docker", "AWS"],
+  },
+  {
+    role: "Junior Software Engineer",
+    company: "CifarX",
+    tag: "First role",
+    period: "2022",
+    location: "5 months · Remote",
+    bullets: [
+      `Early-career backend work in a remote team — where the foundations
+       were poured for everything above.`,
+    ],
+    tools: [],
+  },
+];
+---
+
+<section id="experience" class="scroll-mt-24 border-t border-line-soft/60">
+  <div class="mx-auto max-w-6xl px-6 py-24">
+    <div
+      data-reveal
+      class="mb-14 flex flex-wrap items-end justify-between gap-6"
+    >
+      <div>
+        <p class="mb-3 font-mono text-sm tracking-wide text-primary">
+          [ 01 · experience ]
+        </p>
+        <h2 class="font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          Where I&rsquo;ve worked
+        </h2>
+      </div>
+      <p class="max-w-xs font-mono text-sm text-faint">
+        Four teams, one through-line: systems that stay standing.
+      </p>
+    </div>
+
+    <ol class="space-y-12 border-l border-line-soft pl-6 md:pl-10" data-stagger>
+      {
+        jobs.map((job) => (
+          <li class="relative">
+            <span
+              class="absolute top-[7px] block h-2.5 w-2.5 rounded-full border border-primary bg-canvas md:-left-[calc(2.5rem+5px)] -left-[31px]"
+              aria-hidden="true"
+            />
+            <div class="grid gap-3 md:grid-cols-12 md:gap-6">
+              <p class="font-mono text-sm text-faint md:col-span-3">
+                {job.period}
+                <span class="mt-1 block text-xs">{job.location}</span>
+              </p>
+              <div class="md:col-span-9">
+                <h3 class="text-xl font-medium tracking-tight text-body">
+                  {job.role}
+                  <span class="text-muted">·</span>{" "}
+                  <span class="text-primary">{job.company}</span>{" "}
+                  <span class="font-mono text-sm text-faint">{job.tag}</span>
+                </h3>
+                <ul class="mt-4 space-y-2.5 text-[0.95rem] leading-relaxed text-muted">
+                  {job.bullets.map((bullet) => (
+                    <li class="measure flex gap-3">
+                      <span class="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-faint" aria-hidden="true" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+                {job.tools.length > 0 && (
+                  <ul class="mt-5 flex flex-wrap gap-2">
+                    {job.tools.map((tool) => (
+                      <li class="rounded-full border border-line bg-elevated px-3 py-1 font-mono text-xs text-muted">
+                        {tool}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div
+      data-reveal
+      class="mt-14 rounded-lg border border-line bg-raised p-6 md:flex md:items-center md:justify-between md:gap-6"
+    >
+      <div>
+        <p class="font-mono text-xs tracking-[0.25em] text-faint uppercase">
+          Education
+        </p>
+        <p class="mt-2 text-lg font-medium text-body">
+          Daffodil International University
+        </p>
+        <p class="text-sm text-muted">B.Sc. in Software Engineering</p>
+      </div>
+      <div class="mt-4 font-mono text-sm text-faint md:mt-0 md:text-right">
+        <p>May 2025 — June 2029</p>
+        <p class="mt-1">CGPA 3.83</p>
+      </div>
+    </div>
+  </div>
+</section>

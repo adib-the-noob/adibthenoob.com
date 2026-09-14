@@ -1,0 +1,206 @@
+@import "tailwindcss";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+
+/* ------------------------------------------------------------------
+   ADIB — design tokens
+   Deep-space register on a near-black navy surface.
+   Neutrals are tinted toward the brand hue (violet, ~285°) so every
+   surface feels authored instead of empty. Violet leads, cyan
+   glints — accent stays an accent.
+------------------------------------------------------------------- */
+
+@theme {
+  /* -- deep-space surface -------------------------------------------- */
+  --color-canvas: oklch(0.17 0.033 285);
+  --color-raised: oklch(0.21 0.038 285);
+  --color-elevated: oklch(0.26 0.042 285);
+
+  /* -- text ---------------------------------------------------------- */
+  --color-ink: oklch(0.14 0.03 285);
+  --color-body: oklch(0.9 0.018 285);
+  --color-muted: oklch(0.68 0.03 285);
+  --color-faint: oklch(0.47 0.03 285);
+
+  /* -- edges --------------------------------------------------------- */
+  --color-line: oklch(0.33 0.035 285);
+  --color-line-soft: oklch(0.27 0.033 285);
+
+  /* -- primary (violet) + accent (cyan), earned and restrained ------- */
+  --color-primary: oklch(0.61 0.24 293);
+  --color-primary-deep: oklch(0.5 0.22 293);
+  --color-accent: oklch(0.79 0.155 195);
+
+  /* -- semantic, never color-alone ----------------------------------- */
+  --color-ok: oklch(0.72 0.13 150);
+  --color-warn: oklch(0.75 0.13 75);
+
+  /* -- type ---------------------------------------------------------- */
+  --font-display: "Space Grotesk Variable", "Inter Variable", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", monospace;
+
+  /* -- rhythm: 1 / 4 / 9 --------------------------------------------- */
+  --spacing-9: 2.25rem;
+  --spacing-18: 4.5rem;
+}
+
+/* ------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------- */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-optical-sizing: auto;
+    scroll-behavior: smooth;
+    background-color: var(--color-canvas);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+  }
+
+  body {
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--color-primary) 35%, transparent);
+    color: var(--color-body);
+  }
+
+  :focus-visible {
+    outline: 2px dashed var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .measure {
+    max-width: 65ch;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Scroll-reveal gates — GSAP paints the motion, CSS holds the
+   initial state. Only hides content when JS is present (the `js`
+   class is set pre-paint by an inline head script), and never hides
+   it for people who prefer reduced motion.
+--------------------------------------------------------------------- */
+html.js [data-reveal],
+html.js [data-hero-anim] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html.js [data-reveal],
+  html.js [data-hero-anim] {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------
+   MDX / blog prose
+--------------------------------------------------------------------- */
+.prose-blog {
+  color: var(--color-body);
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.prose-blog > * + * {
+  margin-top: 1.25em;
+}
+
+.prose-blog h2 {
+  margin-top: 2em;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--color-body);
+}
+
+.prose-blog h3 {
+  margin-top: 1.6em;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.prose-blog p {
+  max-width: 65ch;
+  color: var(--color-muted);
+}
+
+.prose-blog strong {
+  color: var(--color-body);
+  font-weight: 600;
+}
+
+.prose-blog a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in oklch, var(--color-primary) 45%, transparent);
+}
+
+.prose-blog a:hover {
+  text-decoration-color: var(--color-primary);
+}
+
+.prose-blog ul,
+.prose-blog ol {
+  max-width: 65ch;
+  padding-inline-start: 1.25em;
+  color: var(--color-muted);
+}
+
+.prose-blog li + li {
+  margin-top: 0.5em;
+}
+
+.prose-blog code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--color-body);
+  background: var(--color-raised);
+  border: 1px solid var(--color-line-soft);
+  border-radius: 0.25rem;
+  padding: 0.1em 0.35em;
+}
+
+.prose-blog pre {
+  overflow-x: auto;
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  background: var(--color-raised);
+  padding: 1rem 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+.prose-blog pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+.prose-blog blockquote {
+  max-width: 65ch;
+  border-inline-start: 2px solid var(--color-primary);
+  padding-inline-start: 1rem;
+  color: var(--color-body);
+  font-style: italic;
+}
