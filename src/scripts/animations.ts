@@ -1,14 +1,21 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+// Live SplitText instances, so ClientRouter page-loads can revert the
+// previous page's splits before re-splitting fresh DOM.
+let splits: SplitText[] = [];
 
 export function initAnimations() {
   // ClientRouter navigations re-run this on every astro:page-load —
   // tear down the previous page's triggers before wiring the new one.
   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  splits.forEach((split) => split.revert());
+  splits = [];
 
   if (reduced.matches) {
     // CSS already keeps everything visible under reduced motion; nothing to run.
@@ -122,6 +129,23 @@ export function initAnimations() {
         end: "bottom top",
         scrub: true,
       },
+    });
+  });
+
+  /* -- split text: company names decode in per character (random
+       order, blur + fade) as they scroll into view --------------------- */
+  document.querySelectorAll<HTMLElement>("[data-split]").forEach((el) => {
+    const split = new SplitText(el, { type: "chars" });
+    splits.push(split);
+
+    gsap.from(split.chars, {
+      opacity: 0,
+      y: 6,
+      filter: "blur(10px)",
+      duration: 0.6,
+      ease: "power2.out",
+      stagger: { each: 0.035, from: "random" },
+      scrollTrigger: { trigger: el, start: "top 88%", once: true },
     });
   });
 }

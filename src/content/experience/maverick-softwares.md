@@ -1,6 +1,8 @@
 ---
 role: "Backend Engineer"
 company: "Maverick Softwares"
+companyUrl: "https://www.linkedin.com/company/mavericks-softwares/"
+companyColor: "#ffffff"
 tag: "Remote"
 period: "Nov 2022 — Dec 2023"
 location: "1 yr 1 mo · Remote"

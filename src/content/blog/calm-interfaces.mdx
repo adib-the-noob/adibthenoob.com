@@ -1,24 +1,43 @@
 ---
-title: "Calm interfaces beat clever ones"
-description: "Why restraint is a product feature, and how to design for attention instead of against it."
+title: "Boring technology wins in production"
+description: "Postgres, queues, and honest schemas have quietly outperformed every clever alternative I have shipped against."
 pubDate: 2026-08-12
-tags: ["design", "product"]
+tags: ["engineering", "systems"]
 ---
 
 import { Callout } from "../../components/mdx/Callout";
 
-Most product interfaces try too hard. They shout for attention with gradients, motion, and novelty for its own sake. The result is noise.
+Every few months a new tool promises to make my problems disappear. A
+database that scales infinitely. A queue with zero configuration. A framework
+that writes the code for you. I have watched teams adopt the clever option
+and spend the next six months becoming accidental experts in its failure
+modes.
 
-A calm interface does three things well:
+Meanwhile the boring stack keeps shipping:
 
-1. **Names the work clearly.** The user should know what this surface is for before reading a paragraph.
-2. **Keeps hierarchy honest.** One primary action. Secondary paths stay secondary.
-3. **Respects attention.** Every animation, accent, and badge has to earn its place.
+1. **Postgres with honest indexes.** Boring. Fast enough at 10,000 customers,
+   auditable with `EXPLAIN`, and it fails in ways you can read in a log.
+2. **A queue you can inspect.** Celery, SQS — pick either. What matters is
+   that when a job silently stops running, you find out in minutes, not at
+   the monthly billing reconciliation.
+3. **Boring deploys.** One container, one reverse proxy, one CI pipeline you
+   can reason about at 2 a.m.
 
 <Callout title="Rule of thumb">
-  If removing an accent, animation, or badge does not hurt comprehension, remove it.
+  If the clever option's failure mode is "read the source code of the tool
+  itself," it is not ready for the part of the system that makes money.
 </Callout>
 
-Restraint is not a lack of ambition. It is a design decision about what matters. When you cut the cleverness, the product gets faster to learn and harder to misunderstand.
+I learned this the expensive way. LakLak Market ran on a legacy Laravel 9
+codebase that sounded like a punchline and served ten thousand customers
+without drama — because inside it were plain SQL queries someone had taken
+the time to index. MetroVPS bills real money across providers, resellers and
+customers on a monolith. Not because monoliths are fashionable again, but
+because when billing breaks, one codebase and one database is where you can
+actually find the bug.
 
-I build software with that bar in mind — clear systems under calm surfaces.
+Clever has its place — in prototypes, in internal tools, in the edges of the
+system where failure is cheap. But for the load-bearing walls, I will take
+the option whose worst day I can imagine in advance.
+
+Reliable beats impressive. Every time it matters.

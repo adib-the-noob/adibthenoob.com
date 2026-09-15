@@ -1,6 +1,8 @@
 ---
 role: "Software Engineer L2"
 company: "Flarezen Ltd."
+companyUrl: "https://metrovps.com"
+companyColor: "#2563eb"
 tag: "@MetroVPS"
 period: "Feb 2026 — Present"
 location: "Dhaka, BD · Hybrid"

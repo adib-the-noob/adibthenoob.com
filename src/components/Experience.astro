@@ -5,6 +5,28 @@ import { getCollection } from "astro:content";
 // draft entries there and this section picks them up automatically.
 const jobs = (await getCollection("experience", ({ data }) => !data.draft))
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+// Official brand colors for the tool pills (dot inside each pill);
+// anything unmapped falls back to the site violet.
+const TOOL_COLORS: Record<string, string> = {
+  Django: "#44b78b",
+  DRF: "#d6322e",
+  FastAPI: "#009688",
+  Laravel: "#ff2d20",
+  "Laravel 9": "#ff2d20",
+  Blade: "#f05340",
+  Celery: "#a9cc50",
+  Channels: "#57b8e0",
+  PostgreSQL: "#336791",
+  MariaDB: "#003545",
+  MySQL: "#00758f",
+  Redis: "#d82c20",
+  Docker: "#2496ed",
+  Nginx: "#009639",
+  AWS: "#ff9900",
+  Bootstrap: "#7952b3",
+  Firebase: "#ffca28",
+};
 ---
 
 <section id="experience" class="scroll-mt-24 border-t border-line-soft/60">
@@ -44,14 +66,43 @@ const jobs = (await getCollection("experience", ({ data }) => !data.draft))
               <div class="md:col-span-9">
                 <h3 class="text-xl font-medium tracking-tight text-body">
                   {job.data.role}
-                  <span class="text-muted">·</span>{" "}
-                  <span class="text-primary">{job.data.company}</span>{" "}
+                </h3>
+                <p class="mt-2 flex flex-wrap items-center gap-2.5">
+                  {
+                    job.data.companyUrl ? (
+                      <a
+                        href={job.data.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class:list={[
+                          "company-chip inline-block",
+                          // #ffffff opts into the inverted black-and-white chip
+                          job.data.companyColor?.toLowerCase() === "#ffffff" && "mono-chip",
+                        ]}
+                        style={job.data.companyColor ? { "--company": job.data.companyColor } : undefined}
+                        data-split
+                      >
+                        {job.data.company}
+                      </a>
+                    ) : (
+                      <span
+                        class:list={[
+                          "company-chip inline-block",
+                          job.data.companyColor?.toLowerCase() === "#ffffff" && "mono-chip",
+                        ]}
+                        style={job.data.companyColor ? { "--company": job.data.companyColor } : undefined}
+                        data-split
+                      >
+                        {job.data.company}
+                      </span>
+                    )
+                  }
                   {job.data.tag && (
                     <span class="font-mono text-sm text-faint">
                       {job.data.tag}
                     </span>
                   )}
-                </h3>
+                </p>
                 {job.data.bullets.length > 0 && (
                   <ul class="mt-4 space-y-2.5 text-[0.95rem] leading-relaxed text-muted">
                     {job.data.bullets.map((bullet) => (
@@ -68,7 +119,15 @@ const jobs = (await getCollection("experience", ({ data }) => !data.draft))
                 {job.data.tools.length > 0 && (
                   <ul class="mt-5 flex flex-wrap gap-2">
                     {job.data.tools.map((tool) => (
-                      <li class="rounded-full border border-line bg-elevated px-3 py-1 font-mono text-xs text-muted">
+                      <li class="flex items-center gap-1.5 rounded-full border border-line bg-elevated px-3 py-1 font-mono text-xs text-muted transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:text-body">
+                        <span
+                          class="h-1.5 w-1.5 rounded-full"
+                          style={{
+                            backgroundColor:
+                              TOOL_COLORS[tool] ?? "var(--color-primary)",
+                          }}
+                          aria-hidden="true"
+                        />
                         {tool}
                       </li>
                     ))}
