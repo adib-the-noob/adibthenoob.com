@@ -2,144 +2,128 @@
 const pathname = Astro.url.pathname;
 const isHome = pathname === "/" || pathname === "";
 const homeHash = (hash: string) => (isHome ? hash : `/${hash}`);
+
+const links = [
+  { label: "Experience", href: homeHash("#experience"), active: false },
+  { label: "Projects", href: homeHash("#projects"), active: false },
+  { label: "Blog", href: "/blog/", active: pathname.startsWith("/blog") },
+  { label: "About", href: homeHash("#about"), active: false },
+  { label: "Contact", href: homeHash("#contact"), active: false },
+];
 ---
 
-<header
-  data-site-header
-  class="sticky top-0 z-40 border-b border-line-soft/40 bg-canvas/80 backdrop-blur-md transition-[background-color,border-color] duration-300 data-[scrolled=true]:border-line-soft/80 data-[scrolled=true]:bg-canvas/95"
->
-  <nav
-    class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-5"
-    aria-label="Primary"
-  >
-    <a href="/" class="font-mono text-sm tracking-tight text-body">
-      ADIB<span class="text-primary">.</span>
-    </a>
-
-    <ul class="hidden items-center gap-8 md:flex">
-      <li>
-        <a
-          href={homeHash("#experience")}
-          class="text-sm text-muted transition-colors hover:text-body"
-        >
-          Experience
-        </a>
-      </li>
-      <li>
-        <a
-          href={homeHash("#projects")}
-          class="text-sm text-muted transition-colors hover:text-body"
-        >
-          Projects
-        </a>
-      </li>
-      <li>
-        <a
-          href="/blog/"
-          class:list={[
-            "text-sm transition-colors hover:text-body",
-            pathname.startsWith("/blog") ? "text-body" : "text-muted",
-          ]}
-        >
-          Blog
-        </a>
-      </li>
-      <li>
-        <a
-          href={homeHash("#about")}
-          class="text-sm text-muted transition-colors hover:text-body"
-        >
-          About
-        </a>
-      </li>
-      <li>
-        <a
-          href={homeHash("#contact")}
-          class="rounded-full border border-line bg-elevated px-5 py-2 font-mono text-sm text-body transition-colors hover:border-primary"
-        >
-          Contact
-        </a>
-      </li>
-    </ul>
-
-    <button
-      type="button"
-      class="flex items-center gap-2 rounded-full border border-line bg-elevated px-4 py-2 font-mono text-sm text-body md:hidden"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      data-menu-toggle
+<header data-site-header class="sticky top-0 z-40">
+  <div class="nav-shell mx-auto w-full max-w-[76rem] px-4 pt-3 sm:px-6">
+    <nav
+      class="nav-pill flex items-center justify-between gap-3 rounded-2xl px-6 py-3.5"
+      aria-label="Primary"
     >
-      Menu
-    </button>
-  </nav>
+      <a
+        href="/"
+        class="shrink-0 cursor-pointer select-none font-mono text-sm tracking-tight text-body"
+      >
+        ADIB<span class="text-primary">.</span>
+      </a>
 
-  <div id="mobile-menu" hidden class="border-t border-line-soft/60 md:hidden">
-    <ul class="mx-auto max-w-6xl space-y-1 px-6 py-4">
-      <li>
-        <a
-          href={homeHash("#experience")}
-          class="block py-2 font-mono text-lg text-body"
-          data-menu-close
+      <ul class="hidden items-center gap-1 md:flex">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  "cursor-pointer select-none rounded-full px-3.5 py-1.5 text-sm transition-colors",
+                  link.active
+                    ? "bg-elevated text-body"
+                    : "text-muted hover:bg-elevated/60 hover:text-body",
+                ]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          data-theme-toggle
+          aria-label="Toggle light/dark theme"
+          title="Toggle light/dark theme"
+          class="rounded-full border border-line bg-elevated p-2.5 text-body transition-colors hover:border-primary"
         >
-          Experience
-        </a>
-      </li>
-      <li>
-        <a
-          href={homeHash("#projects")}
-          class="block py-2 font-mono text-lg text-body"
-          data-menu-close
+          <svg
+            class="icon-sun h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <svg
+            class="icon-moon h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="flex items-center gap-2 rounded-full border border-line bg-elevated px-4 py-2 font-mono text-sm text-body md:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          data-menu-toggle
         >
-          Projects
-        </a>
-      </li>
-      <li>
-        <a href="/blog/" class="block py-2 font-mono text-lg text-body" data-menu-close>
-          Blog
-        </a>
-      </li>
-      <li>
-        <a
-          href={homeHash("#about")}
-          class="block py-2 font-mono text-lg text-body"
-          data-menu-close
-        >
-          About
-        </a>
-      </li>
-      <li>
-        <a
-          href={homeHash("#contact")}
-          class="block py-2 font-mono text-lg text-body"
-          data-menu-close
-        >
-          Contact
-        </a>
-      </li>
+          Menu
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <div
+    id="mobile-menu"
+    hidden
+    class="mx-auto max-w-[76rem] px-4 pt-2 sm:px-6 md:hidden"
+  >
+    <ul class="rounded-2xl border border-line bg-canvas/95 p-3 shadow-lg backdrop-blur-md">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                "block cursor-pointer select-none rounded-xl px-4 py-2.5 font-mono text-lg",
+                link.active ? "bg-elevated text-body" : "text-body",
+              ]}
+              data-menu-close
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </header>
-
-<script>
-  const toggle = document.querySelector("[data-menu-toggle]");
-  const menu = document.getElementById("mobile-menu");
-
-  if (toggle instanceof HTMLButtonElement && menu) {
-    const sync = (open: boolean) => {
-      toggle.setAttribute("aria-expanded", String(open));
-      menu.hidden = !open;
-    };
-
-    toggle.addEventListener("click", () => {
-      sync(menu.hidden);
-    });
-
-    toggle.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !menu.hidden) sync(false);
-    });
-
-    document.querySelectorAll("[data-menu-close]").forEach((link) => {
-      link.addEventListener("click", () => sync(false));
-    });
-  }
-</script>

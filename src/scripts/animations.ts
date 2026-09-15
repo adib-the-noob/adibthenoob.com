@@ -5,9 +5,16 @@ gsap.registerPlugin(ScrollTrigger);
 
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-if (reduced.matches) {
-  // CSS already keeps everything visible under reduced motion; nothing to run.
-} else {
+export function initAnimations() {
+  // ClientRouter navigations re-run this on every astro:page-load —
+  // tear down the previous page's triggers before wiring the new one.
+  ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+  if (reduced.matches) {
+    // CSS already keeps everything visible under reduced motion; nothing to run.
+    return;
+  }
+
   /* -- hero: choreographed entrance --------------------------------- */
   const heroBits = document.querySelectorAll("[data-hero-anim]");
   if (heroBits.length) {
@@ -93,11 +100,11 @@ if (reduced.matches) {
     });
   });
 
-  /* -- navbar gains presence after first scroll ---------------------- */
+  /* -- navbar condenses into a floating glass pill after first scroll - */
   const header = document.querySelector("[data-site-header]");
   if (header) {
     ScrollTrigger.create({
-      start: 24,
+      start: 48,
       end: "max",
       onUpdate: (self) =>
         header.setAttribute("data-scrolled", String(self.isActive)),

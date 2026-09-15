@@ -2,6 +2,8 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Analytics from "@vercel/analytics/astro";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title?: string;
@@ -10,7 +12,7 @@ interface Props {
 
 const {
   title = "ADIB — Backend Software Engineer",
-  description = "Mohammed Adib is a backend software engineer in Dhaka building reliable, scalable platforms with Django, Laravel and AWS. Selected work, writing and experience.",
+  description = "Adib Bin Billal (aka @adib-the-noob) is a backend software engineer in Dhaka building reliable, scalable platforms with Django, Laravel and AWS. Selected work, writing and experience.",
 } = Astro.props;
 ---
 
@@ -24,10 +26,21 @@ const {
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <!-- Flags JS before first paint so [data-reveal] initial states
-         never flash for no-JS visitors (CSS gates on html.js). -->
+    <ClientRouter />
+    <!-- Runs before first paint: flags JS (gates [data-reveal] initial
+         states for no-JS visitors) and restores the stored/system theme
+         so neither reveals nor colors ever flash. -->
     <script is:inline>
       document.documentElement.classList.add("js");
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var light = stored
+            ? stored === "light"
+            : window.matchMedia("(prefers-color-scheme: light)").matches;
+          document.documentElement.classList.toggle("light", light);
+        } catch (e) {}
+      })();
     </script>
   </head>
   <body class="min-h-screen bg-canvas text-body antialiased">
@@ -36,8 +49,17 @@ const {
       <slot />
     </main>
     <Footer />
+    <Analytics />
     <script>
-      import "../scripts/animations";
+      import { initAnimations } from "../scripts/animations";
+      import { initUI } from "../scripts/ui";
+
+      // astro:page-load fires on the initial load AND after every
+      // ClientRouter navigation — one place to (re)bind page behavior.
+      document.addEventListener("astro:page-load", () => {
+        initUI();
+        initAnimations();
+      });
     </script>
   </body>
 </html>

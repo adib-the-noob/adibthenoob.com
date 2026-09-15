@@ -28,4 +28,19 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, projects };
+const experience = defineCollection({
+  loader: glob({ pattern: "**/*.{mdx,md}", base: "./src/content/experience" }),
+  schema: z.object({
+    role: z.string(),
+    company: z.string(),
+    tag: z.string().optional(),
+    period: z.string(),
+    location: z.string().optional(),
+    bullets: z.array(z.string()).default([]),
+    tools: z.array(z.string()).default([]),
+    sortOrder: z.number().default(99),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, projects, experience };

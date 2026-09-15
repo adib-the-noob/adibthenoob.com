@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "@fontsource-variable/space-grotesk";
 @import "@fontsource-variable/inter";
-@import "@fontsource-variable/jetbrains-mono";
 
 /* ------------------------------------------------------------------
    ADIB — design tokens
@@ -21,7 +20,7 @@
   --color-ink: oklch(0.14 0.03 285);
   --color-body: oklch(0.9 0.018 285);
   --color-muted: oklch(0.68 0.03 285);
-  --color-faint: oklch(0.47 0.03 285);
+  --color-faint: oklch(0.52 0.03 285);
 
   /* -- edges --------------------------------------------------------- */
   --color-line: oklch(0.33 0.035 285);
@@ -40,7 +39,8 @@
   --font-display: "Space Grotesk Variable", "Inter Variable", ui-sans-serif,
     system-ui, sans-serif;
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", monospace;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
 
   /* -- rhythm: 1 / 4 / 9 --------------------------------------------- */
   --spacing-9: 2.25rem;
@@ -56,6 +56,7 @@
     -moz-osx-font-smoothing: grayscale;
     font-optical-sizing: auto;
     scroll-behavior: smooth;
+    color-scheme: dark;
     background-color: var(--color-canvas);
     color: var(--color-body);
     font-family: var(--font-sans);
@@ -81,6 +82,82 @@
   .measure {
     max-width: 65ch;
   }
+
+  /* Hero headline word spans — inline-block so GSAP transforms apply,
+     wrapped in explicit space text nodes so the headline can wrap. */
+  .hero-word {
+    display: inline-block;
+  }
+
+  /* Theme toggle icon swap (sun in dark mode, moon in white mode) */
+  html:not(.light) .icon-moon {
+    display: none;
+  }
+
+  html.light .icon-sun {
+    display: none;
+  }
+
+  /* Floating glass pill navbar — transparent & roomy at the top of the
+     page, condensing into a detached blur pill after the first scroll
+     (the [data-scrolled] flag is toggled by scripts/animations.ts). */
+  .nav-shell {
+    transition: max-width 0.35s ease;
+  }
+
+  .nav-pill {
+    border: 1px solid transparent;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      padding 0.3s ease;
+  }
+
+  [data-scrolled="true"] .nav-shell {
+    max-width: 60rem;
+  }
+
+  [data-scrolled="true"] .nav-pill {
+    background: color-mix(in oklch, var(--color-canvas) 78%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-color: var(--color-line);
+    box-shadow: 0 10px 32px -14px rgb(0 0 0 / 0.5);
+    padding-block: 0.75rem;
+  }
+
+  html.light [data-scrolled="true"] .nav-pill {
+    box-shadow: 0 10px 32px -16px rgb(46 34 96 / 0.2);
+  }
+}
+
+/* ------------------------------------------------------------------
+   White mode — violet-tinted paper. Flips every token under
+   html.light; the class is set pre-paint by the inline head script
+   (stored choice or system preference) so there is no flash.
+--------------------------------------------------------------------- */
+html.light {
+  --color-canvas: oklch(0.972 0.008 285);
+  --color-raised: oklch(0.995 0.004 285);
+  --color-elevated: oklch(0.945 0.01 285);
+
+  --color-ink: oklch(0.985 0.005 285);
+  --color-body: oklch(0.25 0.032 285);
+  --color-muted: oklch(0.47 0.032 285);
+  --color-faint: oklch(0.6 0.026 285);
+
+  --color-line: oklch(0.865 0.015 285);
+  --color-line-soft: oklch(0.905 0.011 285);
+
+  --color-primary: oklch(0.54 0.23 293);
+  --color-primary-deep: oklch(0.46 0.21 293);
+  --color-accent: oklch(0.66 0.13 215);
+
+  --color-ok: oklch(0.62 0.15 155);
+  --color-warn: oklch(0.68 0.14 70);
+
+  color-scheme: light;
 }
 
 /* ------------------------------------------------------------------
@@ -102,6 +179,13 @@ html.js [data-hero-anim] {
   html.js [data-reveal],
   html.js [data-hero-anim] {
     opacity: 1;
+  }
+
+  /* Skip ClientRouter cross-fades for people who prefer reduced motion */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
 
