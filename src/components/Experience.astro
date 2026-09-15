@@ -44,7 +44,7 @@ const TOOL_COLORS: Record<string, string> = {
         </h2>
       </div>
       <p class="max-w-xs font-mono text-sm text-faint">
-        Four teams, one through-line: systems that stay standing.
+        Three teams, one through-line: systems that stay standing.
       </p>
     </div>
 
@@ -64,10 +64,7 @@ const TOOL_COLORS: Record<string, string> = {
                 )}
               </p>
               <div class="md:col-span-9">
-                <h3 class="text-xl font-medium tracking-tight text-body">
-                  {job.data.role}
-                </h3>
-                <p class="mt-2 flex flex-wrap items-center gap-2.5">
+                <p class="flex flex-wrap items-center gap-2.5">
                   {
                     job.data.companyUrl ? (
                       <a
@@ -83,6 +80,12 @@ const TOOL_COLORS: Record<string, string> = {
                         data-split
                       >
                         {job.data.company}
+                        <span
+                          class="ml-1 inline-block align-middle text-[0.75em] leading-none"
+                          aria-hidden="true"
+                        >
+                          &nearr;
+                        </span>
                       </a>
                     ) : (
                       <span
@@ -103,6 +106,9 @@ const TOOL_COLORS: Record<string, string> = {
                     </span>
                   )}
                 </p>
+                <h3 class="mt-2 text-xl font-medium tracking-tight text-body">
+                  {job.data.role}
+                </h3>
                 {job.data.bullets.length > 0 && (
                   <ul class="mt-4 space-y-2.5 text-[0.95rem] leading-relaxed text-muted">
                     {job.data.bullets.map((bullet) => (

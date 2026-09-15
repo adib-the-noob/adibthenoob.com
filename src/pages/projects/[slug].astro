@@ -43,6 +43,8 @@ const { Content } = await render(project);
             {project.data.liveUrl && (
               <a
                 href={project.data.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 class="rounded-full border border-primary/50 bg-primary/10 px-3 py-1 font-mono text-xs text-primary transition-colors hover:bg-primary/20"
               >
                 Live ↗
@@ -51,6 +53,8 @@ const { Content } = await render(project);
             {project.data.repoUrl && (
               <a
                 href={project.data.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 class="rounded-full border border-line bg-raised px-3 py-1 font-mono text-xs text-muted transition-colors hover:text-body"
               >
                 Source ↗

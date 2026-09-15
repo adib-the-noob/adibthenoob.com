@@ -327,3 +327,24 @@ html.js [data-hero-anim] {
   color: var(--color-body);
   font-style: italic;
 }
+
+/* Diagrams: an image gets the full column instead of the 65ch text
+   measure, framed as a panel, with the paragraph under it as caption. */
+.prose-blog p:has(> img) {
+  max-width: none;
+}
+
+.prose-blog img {
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  background: var(--color-raised);
+}
+
+.prose-blog img + p,
+.prose-blog p:has(> img) + p {
+  margin-top: 0.75em;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--color-faint);
+}

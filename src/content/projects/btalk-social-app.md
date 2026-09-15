@@ -34,6 +34,14 @@ the social graph — plus a real-time messaging layer on **Django Channels** and
 - **ASGI** serving both HTTP requests and WebSocket connections from a single
   deployment.
 
+## Screens
+
+<img src="/images/projects/btalk-ui.jpeg" alt="Btalk app screen" width="1280" height="913" loading="lazy" decoding="async" />
+
+<img src="/images/projects/btalk-ui-2.jpeg" alt="Btalk app screen" width="825" height="669" loading="lazy" decoding="async" />
+
+<img src="/images/projects/btalk-message-ui.jpeg" alt="Btalk message thread" width="1280" height="908" loading="lazy" decoding="async" />
+
 ## What I learned
 
 Real-time changes your data model. Designing for "what does the client see

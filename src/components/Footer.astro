@@ -25,8 +25,8 @@ const elsewhere = [
         ADIB<span class="text-primary">.</span>
       </p>
       <p class="mt-3 max-w-xs font-mono text-xs leading-relaxed text-faint">
-        © {year} Adib Bin Billal · aka @adib-the-noob. Built with Astro,
-        Tailwind and GSAP.
+        © {year} Mohammed Adib · Adib Bin Billal · @adib-the-noob. Built with
+        Astro, Tailwind and GSAP.
       </p>
       <p class="mt-3 font-mono text-xs text-faint">
         <span class="text-ok">●</span> Available for freelance &amp; full-time
@@ -54,9 +54,19 @@ const elsewhere = [
             <li>
               <a
                 href={item.href}
+                target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel={item.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                 class="font-mono text-sm text-faint underline decoration-line underline-offset-4 transition-colors hover:text-body"
               >
                 {item.label}
+                {item.href.startsWith("http") && (
+                  <span
+                    class="ml-0.5 inline-block align-middle text-[0.75em] leading-none"
+                    aria-hidden="true"
+                  >
+                    &nearr;
+                  </span>
+                )}
               </a>
             </li>
           ))

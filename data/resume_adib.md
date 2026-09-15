@@ -14,13 +14,13 @@ github.com/adib-the-noob | linkedin.com/in/adib550 [URL 🔗](https://github.com
 
 • Collaborated on system design decisions to maintain scalability while operating within a monolithic architecture.
 
+## CifarX, Remote (5 months) Junior Software Engineer
 Jan 2025 – May 2025
 
 • Tools: Laravel 9, Laravel Blade, MariaDB, Bootstrap, Laravel Queue, Firebase, REST APIs, SQL • Delivered performance and feature updates for LakLak Market, an e-commerce CMS serving over 10,000 customers, working with a large legacy Laravel 9 codebase. • Improved database efficiency by optimizing complex queries that supported high-volume customer operations. • Refactored and maintained UI components across admin, seller and customer dashboards using Blade templates and Bootstrap. • Designed and implemented RESTful APIs to support mobile app integration, enabling smoother feature rollouts and faster client communication. • Collaborated with mobile team to ensure alignment across platform features and deployment timelines. • Adapted quickly to the inherited codebase, delivering measurable improvements and ensuring system maintainability
 
 under tight deadlines.
 
-## CifarX, Remote (5 months) Junior Software Engineer
 
 ## Maverick Softwares, Remote (1 year 1 month) Backend Engineer Nov 2022 – Dec 2023
 

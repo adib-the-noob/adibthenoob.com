@@ -23,7 +23,7 @@
       <p
         data-hero-anim
         data-hero-eyebrow
-        class="mb-5 font-mono text-sm tracking-wide text-primary"
+        class="mb-5 font-mono text-sm tracking-wide text-balance text-primary"
       >
         [ Backend Engineer · Dhaka, Bangladesh ]
       </p>
@@ -46,11 +46,17 @@
         data-hero-sub
         class="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted"
       >
-        Adib Bin Billal — backend software engineer, aka
+        Mohammed Adib — backend software engineer. Most know me as Adib Bin
+        Billal, aka
         <a
           href="https://github.com/adib-the-noob"
+          target="_blank"
+          rel="noopener noreferrer"
           class="whitespace-nowrap text-body underline decoration-line underline-offset-4 transition-colors hover:text-primary"
-          >@adib-the-noob</a
+          >@adib-the-noob<span
+            class="ml-0.5 inline-block align-middle text-[0.75em] leading-none"
+            aria-hidden="true">&nearr;</span
+          ></a
         >. I design the systems behind the interface: multi-tenant billing,
         resource orchestration, and APIs that stay reliable when the traffic
         arrives. Currently engineering MetroVPS at Flarezen.
@@ -59,14 +65,14 @@
         <a
           data-hero-anim
           href="#projects"
-          class="rounded-full bg-primary px-6 py-3 font-mono text-sm font-medium text-ink transition-transform hover:-translate-y-0.5"
+          class="w-full rounded-full bg-primary px-6 py-3 text-center font-mono text-sm font-medium text-ink transition-transform hover:-translate-y-0.5 sm:w-auto"
         >
           See the work
         </a>
         <a
           data-hero-anim
           href="#contact"
-          class="rounded-full border border-line bg-elevated px-6 py-3 font-mono text-sm text-body transition-colors hover:border-primary"
+          class="w-full rounded-full border border-line bg-elevated px-6 py-3 text-center font-mono text-sm text-body transition-colors hover:border-primary sm:w-auto"
         >
           Get in touch
         </a>
@@ -80,8 +86,8 @@
         data-hero-card
         class="rounded-lg border border-line bg-raised p-6 shadow-[0_0_60px_-20px_var(--color-primary)] sm:p-7"
       >
-        <div class="flex items-center justify-between">
-          <span class="flex items-center gap-2 font-mono text-xs text-faint">
+        <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+          <span class="flex items-center gap-2 font-mono text-xs whitespace-nowrap text-faint">
             <span class="relative flex h-2 w-2" aria-hidden="true">
               <span
                 class="absolute inline-flex h-full w-full animate-ping rounded-full bg-ok opacity-60"
@@ -90,7 +96,7 @@
             </span>
             status: available
           </span>
-          <span class="font-mono text-xs text-faint">dhaka · gmt+6</span>
+          <span class="font-mono text-xs whitespace-nowrap text-faint">dhaka · gmt+6</span>
         </div>
 
         <div class="mt-6">
@@ -107,24 +113,27 @@
               rel="noopener noreferrer"
               class="text-primary underline-offset-4 transition-colors hover:underline"
               >Flarezen Ltd.</a
+            ><span
+              class="ml-0.5 inline-block align-middle text-[0.75em] leading-none text-primary"
+              aria-hidden="true">&nearr;</span
             >
             — @MetroVPS
           </p>
           <p class="mt-1 font-mono text-xs text-faint">feb 2026 — present</p>
         </div>
 
-        <dl class="mt-6 grid grid-cols-3 gap-4 border-t border-line-soft pt-6">
+        <dl class="mt-6 grid grid-cols-3 gap-3 border-t border-line-soft pt-6 sm:gap-4">
           <div>
             <dd class="font-display text-2xl font-semibold text-body">3+</dd>
-            <dt class="mt-1 font-mono text-xs text-faint">yrs shipping</dt>
+            <dt class="mt-1 font-mono text-[11px] text-faint sm:text-xs">yrs shipping</dt>
           </div>
           <div>
             <dd class="font-display text-2xl font-semibold text-body">10k+</dd>
-            <dt class="mt-1 font-mono text-xs text-faint">customers served</dt>
+            <dt class="mt-1 font-mono text-[11px] text-faint sm:text-xs">customers served</dt>
           </div>
           <div>
-            <dd class="font-display text-2xl font-semibold text-body">4</dd>
-            <dt class="mt-1 font-mono text-xs text-faint">teams</dt>
+            <dd class="font-display text-2xl font-semibold text-body">3</dd>
+            <dt class="mt-1 font-mono text-[11px] text-faint sm:text-xs">teams</dt>
           </div>
         </dl>
 
@@ -134,7 +143,7 @@
           </p>
           <ul class="mt-3 flex flex-wrap gap-2">
             {
-              ["billing", "multi-tenancy", "rest apis", "realtime", "aws"].map(
+              ["billing", "multi-tenancy", "devOps", "realtime", "cloud", "deployment"].map(
                 (chip) => (
                   <li class="rounded-full border border-line bg-elevated px-3 py-1 font-mono text-xs text-muted">
                     {chip}
