@@ -17,7 +17,7 @@ Meanwhile the boring stack keeps shipping:
 
 1. **Postgres with honest indexes.** Boring. Fast enough at 10,000 customers,
    auditable with `EXPLAIN`, and it fails in ways you can read in a log.
-2. **A queue you can inspect.** Celery, SQS — pick either. What matters is
+2. **A queue you can inspect.** Celery, SQS: pick either. What matters is
    that when a job silently stops running, you find out in minutes, not at
    the monthly billing reconciliation.
 3. **Boring deploys.** One container, one reverse proxy, one CI pipeline you
@@ -30,13 +30,13 @@ Meanwhile the boring stack keeps shipping:
 
 I learned this the expensive way. LakLak Market ran on a legacy Laravel 9
 codebase that sounded like a punchline and served ten thousand customers
-without drama — because inside it were plain SQL queries someone had taken
+without drama, because inside it were plain SQL queries someone had taken
 the time to index. MetroVPS bills real money across providers, resellers and
 customers on a monolith. Not because monoliths are fashionable again, but
 because when billing breaks, one codebase and one database is where you can
 actually find the bug.
 
-Clever has its place — in prototypes, in internal tools, in the edges of the
+Clever has its place: in prototypes, in internal tools, in the edges of the
 system where failure is cheap. But for the load-bearing walls, I will take
 the option whose worst day I can imagine in advance.
 

@@ -12,7 +12,7 @@ function applyTheme() {
       : window.matchMedia("(prefers-color-scheme: light)").matches;
     document.documentElement.classList.toggle("light", light);
   } catch {
-    /* private mode — fall back to whatever is already applied */
+    /* private mode: fall back to whatever is already applied */
   }
 }
 
@@ -49,7 +49,7 @@ export function initUI() {
       try {
         localStorage.setItem("theme", light ? "light" : "dark");
       } catch {
-        /* private mode — choice just won't persist */
+        /* private mode: choice just won't persist */
       }
     });
   }
@@ -74,7 +74,7 @@ export function initUI() {
   }
 
   /* -- ClientRouter swaps replace <html> attributes with the incoming
-        page's (which carry no classes) — restore js/theme after every
+        page's (which carry no classes), so restore js/theme after every
         swap so the reveal gates and white mode survive navigation. --- */
   if (!swapHooked) {
     swapHooked = true;

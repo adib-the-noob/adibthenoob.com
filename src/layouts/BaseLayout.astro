@@ -11,8 +11,8 @@ interface Props {
 }
 
 const {
-  title = "ADIB — Backend Software Engineer",
-  description = "Mohammed Adib — known as Adib Bin Billal, aka @adib-the-noob — is a backend software engineer in Dhaka building reliable, scalable platforms with Django, Laravel and AWS. Selected work, writing and experience.",
+  title = "ADIB · Backend Software Engineer",
+  description = "Mohammed Adib, known as Adib Bin Billal, aka @adib-the-noob, is a backend software engineer in Dhaka building reliable, scalable platforms with Django, Laravel and AWS. Selected work, writing and experience.",
 } = Astro.props;
 ---
 
@@ -55,7 +55,7 @@ const {
       import { initUI } from "../scripts/ui";
 
       // astro:page-load fires on the initial load AND after every
-      // ClientRouter navigation — one place to (re)bind page behavior.
+      // ClientRouter navigation: one place to (re)bind page behavior.
       document.addEventListener("astro:page-load", () => {
         initUI();
         initAnimations();

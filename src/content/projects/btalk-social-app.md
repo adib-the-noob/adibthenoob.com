@@ -1,5 +1,5 @@
 ---
-title: Btalk — A Social Media App
+title: "Btalk: A Social Media App"
 description: >-
   A social media platform with real-time messaging and post management,
   built with Django and served from AWS.
@@ -21,8 +21,8 @@ feeds, and a chat layer where messages appear the instant they are sent.
 
 ## What I built
 
-The entire backend with **Django REST Framework** — users, posts, feeds, and
-the social graph — plus a real-time messaging layer on **Django Channels** and
+The entire backend with **Django REST Framework** (users, posts, feeds, and the
+social graph), plus a real-time messaging layer on **Django Channels** and
 **WebSockets**. Presence indicators and live chat state were persisted to
 **PostgreSQL** so nothing was lost on reconnect.
 

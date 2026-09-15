@@ -11,7 +11,7 @@ const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 let splits: SplitText[] = [];
 
 export function initAnimations() {
-  // ClientRouter navigations re-run this on every astro:page-load —
+  // ClientRouter navigations re-run this on every astro:page-load:
   // tear down the previous page's triggers before wiring the new one.
   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
   splits.forEach((split) => split.revert());
@@ -39,13 +39,17 @@ export function initAnimations() {
         { y: 14, autoAlpha: 0 },
         { y: 0, autoAlpha: 1, duration: 0.45 },
       );
-    if (words.length)
-      tl.fromTo(
+    if (words.length) {
+      // The mask does the hiding, so the words stay opaque: they ride up
+      // from behind the clipped line instead of fading. Position and
+      // opacity are set in one call so no frame shows the resting state.
+      gsap.set(words, { autoAlpha: 1, yPercent: 130 });
+      tl.to(
         words,
-        { y: 26, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.05 },
+        { yPercent: 0, duration: 0.8, ease: "power4.out", stagger: 0.045 },
         "-=0.2",
       );
+    }
     if (sub.length)
       tl.fromTo(
         sub,
@@ -54,10 +58,11 @@ export function initAnimations() {
         "-=0.3",
       );
     if (cta.length)
+      // Buttons fade in place, no vertical travel, so the row never shifts.
       tl.fromTo(
         cta,
-        { y: 14, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.4, stagger: 0.08 },
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.4, stagger: 0.08 },
         "-=0.25",
       );
     if (card.length)
